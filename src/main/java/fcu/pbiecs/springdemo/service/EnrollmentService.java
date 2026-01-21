@@ -5,9 +5,9 @@ import fcu.pbiecs.springdemo.model.EnrollmentId;
 import fcu.pbiecs.springdemo.repository.EnrollmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EnrollmentService {
@@ -19,11 +19,6 @@ public class EnrollmentService {
         return enrollmentRepository.findAll();
     }
 
-    // public Enrollment getEnrollmentById(EnrollmentId id) {
-    //     Optional<Enrollment> optEnrollment = enrollmentRepository.findById(id);
-    //     return optEnrollment.orElse(null);
-    // }
-
     public List<Enrollment> getEnrollmentsByStudentId(Integer studentId) {
         return enrollmentRepository.findByIdStudentId(studentId);
     }
@@ -32,20 +27,23 @@ public class EnrollmentService {
         return enrollmentRepository.findByIdCourseId(courseId);
     }
 
+    public Enrollment getEnrollmentById(EnrollmentId id) {
+        return enrollmentRepository.findById(id).orElse(null);
+    }
+
     public Enrollment createEnrollment(Enrollment enrollment) {
-        // In a real application, you might want to add validation
-        // to ensure the student and course exist before saving.
         return enrollmentRepository.save(enrollment);
     }
 
     public Enrollment updateEnrollment(EnrollmentId id, Enrollment enrollmentDetails) {
-        if (enrollmentRepository.existsById(id)) {
-            enrollmentDetails.setId(id);
-            return enrollmentRepository.save(enrollmentDetails);
-        }
-        return null;
+        return enrollmentRepository.findById(id).map(enrollment -> {
+            enrollment.setEnrollment_date(enrollmentDetails.getEnrollment_date());
+            enrollment.setGrade(enrollmentDetails.getGrade());
+            return enrollmentRepository.save(enrollment);
+        }).orElse(null);
     }
 
+    @Transactional
     public boolean deleteEnrollmentById(EnrollmentId id) {
         if (enrollmentRepository.existsById(id)) {
             enrollmentRepository.deleteById(id);

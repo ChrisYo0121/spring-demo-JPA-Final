@@ -51,6 +51,7 @@ public class CourseController {
     @Operation(summary = "更新課程", description = "依照ID更新課程資訊")
     @PutMapping("/{id}")
     public Course updateCourse(@PathVariable Integer id, @RequestBody Course courseDetails) {
-        return courseService.updateCourse(id, courseDetails);
+        courseDetails.setCourseId(id);
+        return courseService.updateCourse(courseDetails);
     }
 }

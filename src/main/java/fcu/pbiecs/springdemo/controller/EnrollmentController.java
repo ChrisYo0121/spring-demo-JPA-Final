@@ -26,12 +26,12 @@ public class EnrollmentController {
         return enrollmentService.getAllEnrollments();
     }
 
-    // @Operation(summary = "查詢特定選課紀錄", description = "依照學生ID和課程ID查詢選課紀錄")
-    // @GetMapping("/students/{studentId}/courses/{courseId}")
-    // public Enrollment getEnrollmentById(@PathVariable Integer studentId, @PathVariable Integer courseId) {
-    //     EnrollmentId enrollmentId = new EnrollmentId(studentId, courseId);
-    //     return enrollmentService.getEnrollmentById(enrollmentId);
-    // }
+    @Operation(summary = "查詢特定選課紀錄", description = "依照學生ID和課程ID查詢選課紀錄")
+    @GetMapping("/students/{studentId}/courses/{courseId}")
+    public Enrollment getEnrollmentById(@PathVariable Integer studentId, @PathVariable Integer courseId) {
+        EnrollmentId enrollmentId = new EnrollmentId(studentId, courseId);
+        return enrollmentService.getEnrollmentById(enrollmentId);
+    }
 
     @Operation(summary = "查詢特定學生的所有選課紀錄", description = "給定 student id，查詢該名學生的所有選課紀錄")
     @GetMapping("/student/{studentId}")

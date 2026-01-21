@@ -9,4 +9,6 @@ import java.util.List;
 public interface EnrollmentRepository extends JpaRepository<Enrollment, EnrollmentId> {
     List<Enrollment> findByIdStudentId(Integer studentId);
     List<Enrollment> findByIdCourseId(Integer courseId);
+    void deleteByIdStudentId(Integer studentId);
+    void deleteByIdCourseId(Integer courseId);
 }

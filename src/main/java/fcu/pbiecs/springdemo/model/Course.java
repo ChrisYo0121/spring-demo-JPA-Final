@@ -1,47 +1,53 @@
 package fcu.pbiecs.springdemo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "course")
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer course_id;
+    @Column(name = "course_id")
+    private Integer courseId;
 
-    private String course_name;
-    private String course_description;
+    @Column(name = "course_name")
+    private String courseName;
+
+    @Column(name = "course_description")
+    private String courseDescription;
+
+    @Column(name = "credits")
     private Integer credits;
-    private Integer teacher_id;
+
+    @Column(name = "teacher_id")
+    private Integer teacherId;
 
     // Getters and Setters
-    public Integer getCourse_id() {
-        return course_id;
+    public Integer getCourseId() {
+        return courseId;
     }
 
-    public void setCourse_id(Integer course_id) {
-        this.course_id = course_id;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 
-    public String getCourse_name() {
-        return course_name;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setCourse_name(String course_name) {
-        this.course_name = course_name;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
-    public String getCourse_description() {
-        return course_description;
+    public String getCourseDescription() {
+        return courseDescription;
     }
 
-    public void setCourse_description(String course_description) {
-        this.course_description = course_description;
+    public void setCourseDescription(String courseDescription) {
+        this.courseDescription = courseDescription;
     }
 
     public Integer getCredits() {
@@ -52,11 +58,11 @@ public class Course {
         this.credits = credits;
     }
 
-    public Integer getTeacher_id() {
-        return teacher_id;
+    public Integer getTeacherId() {
+        return teacherId;
     }
 
-    public void setTeacher_id(Integer teacher_id) {
-        this.teacher_id = teacher_id;
+    public void setTeacherId(Integer teacherId) {
+        this.teacherId = teacherId;
     }
 }
