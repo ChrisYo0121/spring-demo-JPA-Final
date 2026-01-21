@@ -1,0 +1,24 @@
+package fcu.pbiecs.springdemo.service;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+@Service
+public class DatabaseService {
+
+@Value("${spring.datasource.url}")
+private String databaseUrl;
+
+@Value("${spring.datasource.username}")
+private String databaseUsername;
+
+@Value("${spring.datasource.password}")
+private String databasePassword;
+
+public Connection connect() throws SQLException {
+    return DriverManager.getConnection(databaseUrl, databaseUsername, databasePassword);
+}
+
+}
